@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_footer_footers",
+  "info": {
+    "displayName": "Footer",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "redesSociales": {
+      "type": "json",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Telefono": {
+      "type": "string",
+      "default": "+52 ",
+      "maxLength": 13,
+      "required": true
+    }
+  }
+}

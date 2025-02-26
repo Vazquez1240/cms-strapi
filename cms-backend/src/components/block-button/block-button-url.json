@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_block_button_block_button_urls",
+  "info": {
+    "displayName": "BlockButtonUrl"
+  },
+  "options": {},
+  "attributes": {
+    "texto_button": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true,
+      "default": "https://"
+    },
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "posicion": {
+      "type": "enumeration",
+      "enum": [
+        "centro",
+        "izquierda",
+        "derecha"
+      ],
+      "default": "centro",
+      "required": true
+    }
+  }
+}

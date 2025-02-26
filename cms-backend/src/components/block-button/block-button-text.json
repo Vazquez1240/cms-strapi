@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_block_button_block_button_texts",
+  "info": {
+    "displayName": "BlockButtonText"
+  },
+  "options": {},
+  "attributes": {
+    "texto": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "posicion": {
+      "type": "enumeration",
+      "enum": [
+        "centro",
+        "izquierda",
+        "derecha"
+      ],
+      "default": "centro",
+      "required": true
+    }
+  }
+}

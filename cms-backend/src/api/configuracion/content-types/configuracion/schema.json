@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "configuracions",
+  "info": {
+    "singularName": "configuracion",
+    "pluralName": "configuracions",
+    "displayName": "configuracion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "foooter": {
+      "type": "component",
+      "repeatable": false,
+      "component": "footer.footer",
+      "required": true
+    },
+    "mantenimiento": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "carousel": {
+      "type": "component",
+      "repeatable": false,
+      "component": "carousel.carousel",
+      "required": true
+    }
+  }
+}
