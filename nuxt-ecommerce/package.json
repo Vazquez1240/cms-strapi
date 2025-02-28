@@ -12,11 +12,16 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/ui": "^2.21.0",
+    "@pinia/nuxt": "^0.10.1",
     "nuxt": "^3.15.4",
-    "vue": "latest"
+    "pinia": "^3.0.1",
+    "vue": "^3.5.13"
   },
   "dependencies": {
+    "@auth/core": "^0.34.2",
     "@nuxt/ui-pro": "^1.7.0",
-    "axios": "^1.7.9"
+    "@sidebase/nuxt-auth": "^0.10.0",
+    "axios": "^1.8.1",
+    "pinia-plugin-persistedstate": "^4.2.0"
   }
 }

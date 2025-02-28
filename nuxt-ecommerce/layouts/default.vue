@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import {onMounted,ref} from "vue";
 import Navbar from "~/components/Navbar.vue";
-import Mantenimiento from "~/components/pages/Matenimiento.vue"
+import Mantenimiento from "~/components/Pages/Matenimiento.vue"
 
 const { $backedstrapi } = useNuxtApp();
 const matenimiento = ref(true)
