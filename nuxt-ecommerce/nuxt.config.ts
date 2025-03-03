@@ -21,11 +21,14 @@ export default defineNuxtConfig({
 
       /*  APIS DE DISCORD  */
 
+      DISCORD_API_USERS: "https://discord.com/api/users",
+
 
       /*  APIS DE STRAPI  */
-      STRAPI_USERS_EXISTING: "http://localhost:1337/api/users?",
+      STRAPI_USERS_EXISTING: "http://localhost:1337/api/users",
       STRAPI_USERS_REGISTER: "http://localhost:1337/api/auth/local/register",
-
+      STRAPI_USERS_LOGIN: "http://localhost:1337/api/auth/local",
+      STRAPI_USERS_CHANGEPASSWORD: "http://localhost:1337/api/auth/change-password",
     }
   }
 })

@@ -1,0 +1,13 @@
+{
+  "kind": "collectionType",
+  "collectionName": "keycloaks",
+  "info": {
+    "singularName": "keycloak",
+    "pluralName": "keycloaks",
+    "displayName": "Keycloak"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {}
+}

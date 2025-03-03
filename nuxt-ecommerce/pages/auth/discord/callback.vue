@@ -7,55 +7,50 @@
 
 <script setup lang="ts">
 import axios from "axios";
+import {userStore} from "~/stores/userStore";
+import DecodeJWT from "~/utils/functions";
 
 const route = useRoute();
 const router = useRouter();
 const loading = ref(true);
+const config = useRuntimeConfig();
+const useUserStore = userStore()
 
 onMounted(async () => {
   const accessToken = route.query.access_token as string;
+  const refreshToken = route.query.refresh_token as string;
+  const expiresIn = Number(route.query["raw[expires_in]"]) || 604800;
 
-  if (!accessToken) {
-    router.push("/");
-    return;
-  }
+  console.log(route.query, 'query')
 
   try {
-    // 🔹 Paso 1: Obtener datos del usuario en Discord
-    const userResponse = await axios.get("https://discord.com/api/users/@me", {
+    const userResponse = await axios.get(config.public.DISCORD_API_USERS+'/@me', {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
-    const discordUser = userResponse.data;
-    console.log("Usuario en Discord:", discordUser);
 
-    // 🔹 Paso 2: Buscar si el usuario ya existe en Strapi
     const existingUserResponse = await axios.get(
-        `http://localhost:1337/api/users?filters[email][$eq]=${discordUser.email}`
+        config.public.STRAPI_USERS_EXISTING+`?filters[email][$eq]=${userResponse.data.email}`
     );
 
-    let strapiUser;
 
-    if (existingUserResponse.data.length > 0) {
-      // 🔹 Usuario ya existe → Iniciar sesión en Strapi
-      strapiUser = existingUserResponse.data[0];
-      console.log("Usuario encontrado en Strapi:", strapiUser);
-    } else {
-      // 🔹 Usuario no existe → Crear en Strapi
+    if (existingUserResponse.data.length === 0){
+      /*   AQUI ES EN EL CASO QUE EL USUARIO NO EXISTA EN STRAPI LO VAMOS A CREAR  */
       const registerResponse = await axios.post("http://localhost:1337/api/auth/local/register", {
         username: discordUser.username,
-        email: discordUser.email ?? `${discordUser.id}@discord.com`, // Si no hay email, generar uno falso
+        email: discordUser.email ?? `${discordUser.id}@discord.com`,
         password: discordUser.id,
       });
-
-      strapiUser = registerResponse.data.user;
-      console.log("Usuario creado en Strapi:", strapiUser);
     }
 
-    // 🔹 Guardar sesión en localStorage o Vuex/Pinia
-    localStorage.setItem("user", JSON.stringify(strapiUser));
+    const exp = Math.floor(Date.now() / 1000) + expiresIn;
 
-    // 🔹 Redirigir al usuario a la página principal
+    useUserStore.setDataAuthToken(accessToken, refreshToken, exp, exp, 'discord')
+
+    useUserStore.setDataUsername(userResponse.data.username);
+    useUserStore.setDataNombre(userResponse.data.name);
+    useUserStore.setDataEmail(userResponse.data.email);
+
     router.push("/");
   } catch (error) {
     console.error("Error en el proceso de autenticación:", error);
