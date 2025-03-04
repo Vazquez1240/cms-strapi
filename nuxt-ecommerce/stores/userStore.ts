@@ -30,8 +30,8 @@ const userStore = defineStore('userStore', {
     setDataAuthToken(token: string, refresh_token: string, tokenExpiry: number, refreshTokenExpiry:number, provider: string) {
       this.auth.token = token;
       this.auth.refresh_token = refresh_token;
-      this.auth.tokenExpiry = tokenExpiry;
-      this.auth.refreshTokenExpiry = refreshTokenExpiry;
+      this.auth.tokenExpiry = (Date.now() / 1000) + tokenExpiry;
+      this.auth.refreshTokenExpiry = (Date.now() / 1000) + refreshTokenExpiry;
       this.auth.provider = provider;
     },
     clearAuth() {
@@ -49,9 +49,7 @@ const userStore = defineStore('userStore', {
     },
     isTokenValid() {
       if (!this.auth.token || !this.auth.tokenExpiry) return false;
-      console.log(Date.now() / 1000, 'Date.now() / 1000')
-      console.log(this.auth.tokenExpiry, 'this.auth.tokenExpiry')
-      return Date.now() / 1000 > this.auth.tokenExpiry;
+      return Date.now() / 1000 < this.auth.tokenExpiry;
     },
     isRefreshTokenValid() {
       if (!this.auth.refresh_token || !this.auth.refreshTokenExpiry) return false;
