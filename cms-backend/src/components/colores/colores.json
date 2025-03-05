@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_colores_colores",
+  "info": {
+    "displayName": "colores"
+  },
+  "options": {},
+  "attributes": {
+    "color_primario": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "color_secundario": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

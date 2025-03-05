@@ -384,6 +384,7 @@ export interface ApiConfiguracionConfiguracion
   attributes: {
     carousel: Schema.Attribute.Component<'carousel.carousel', false> &
       Schema.Attribute.Required;
+    colores: Schema.Attribute.Component<'colores.colores', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

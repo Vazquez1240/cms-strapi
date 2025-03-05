@@ -27,6 +27,11 @@
       "repeatable": false,
       "component": "carousel.carousel",
       "required": true
+    },
+    "colores": {
+      "type": "component",
+      "repeatable": true,
+      "component": "colores.colores"
     }
   }
 }

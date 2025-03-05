@@ -34,11 +34,23 @@ export interface BlockButtonBlockButtonUrl extends Struct.ComponentSchema {
 export interface CarouselCarousel extends Struct.ComponentSchema {
   collectionName: 'components_carousel_carousels';
   info: {
+    description: '';
     displayName: 'Carousel';
     icon: 'landscape';
   };
   attributes: {
-    descripcion: Schema.Attribute.Text & Schema.Attribute.Required;
+    imagen_carrusel: Schema.Attribute.Media<'files' | 'images' | 'videos'>;
+  };
+}
+
+export interface ColoresColores extends Struct.ComponentSchema {
+  collectionName: 'components_colores_colores';
+  info: {
+    displayName: 'colores';
+  };
+  attributes: {
+    color_primario: Schema.Attribute.String & Schema.Attribute.Required;
+    color_secundario: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -49,7 +61,7 @@ export interface FooterFooter extends Struct.ComponentSchema {
     displayName: 'Footer';
   };
   attributes: {
-    logo: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
+    logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     redesSociales: Schema.Attribute.JSON & Schema.Attribute.Required;
     Telefono: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -66,6 +78,7 @@ declare module '@strapi/strapi' {
       'block-button.block-button-text': BlockButtonBlockButtonText;
       'block-button.block-button-url': BlockButtonBlockButtonUrl;
       'carousel.carousel': CarouselCarousel;
+      'colores.colores': ColoresColores;
       'footer.footer': FooterFooter;
     }
   }

@@ -8,6 +8,32 @@ const keycloakController = {
       `${process.env.KEYCLOAK_AUTH_SESION}auth?client_id=${process.env.KEYCLOAK_CLIENT_ID}&redirect_uri=${process.env.KEYCLOAK_REDIRECT_URL}&scope=openid email profile&response_type=code`
     );
   },
+  async logout(ctx: Context) {
+    try {
+      const refreshToken = ctx.request.query.refresh_token as string | undefined;
+
+      if (!refreshToken) {
+        ctx.throw(400, "Falta el refresh_token");
+      }
+
+      const params = new URLSearchParams({
+        client_id: process.env.KEYCLOAK_CLIENT_ID!,
+        client_secret: process.env.KEYCLOAK_CLIENT_SECRET!,
+        refresh_token: refreshToken,
+      });
+
+      await axios.post(process.env.KEYCLOAK_LOGOUT_URL!, params, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      });
+
+
+
+      ctx.redirect(`${process.env.URL_REDIRECT_FRONTEND_LOGOUT}`);
+    } catch (error) {
+      console.error("Error en logout:", error);
+      ctx.throw(500, "Error en el logout de Keycloak");
+    }
+  },
   async callback(ctx: Context) {
     try {
       const code = ctx.request.query.code as string | undefined;
@@ -65,16 +91,14 @@ const keycloakController = {
          * FINALMENTE REDIRECCIONAMOS AL USUARIO AL FRONTEND PARA QUE EL FRONTEND RECIBA TODA LA DATA Y PUEDA GUARDAR EL
          * USUARIO
          * **/
-        ctx.redirect(`${process.env.URL_REDIRECT_FRONTEND}?access_token=${response.data.access_token}&
-        refresh_token=${response.data.refresh_token}&expires_in=${response.data.expires_in}&refresh_expires_in=${response.data.refresh_expires_in}`);
+        ctx.redirect(`${process.env.URL_REDIRECT_FRONTEND}?access_token=${response.data.access_token}&refresh_token=${response.data.refresh_token}&expires_in=${response.data.expires_in}&refresh_expires_in=${response.data.refresh_expires_in}`);
       }
 
       /**
        * FINALMENTE REDIRECCIONAMOS AL USUARIO AL FRONTEND PARA QUE EL FRONTEND RECIBA TODA LA DATA Y PUEDA GUARDAR EL
        * USUARIO
        * **/
-      ctx.redirect(`${process.env.URL_REDIRECT_FRONTEND}?access_token=${response.data.access_token}&
-        refresh_token=${response.data.refresh_token}&expires_in=${response.data.expires_in}&refresh_expires_in=${response.data.refresh_expires_in}`);
+      ctx.redirect(`${process.env.URL_REDIRECT_FRONTEND}?access_token=${response.data.access_token}&refresh_token=${response.data.refresh_token}&expires_in=${response.data.expires_in}&refresh_expires_in=${response.data.refresh_expires_in}`);
     } catch (error) {
       console.error("Error en callback:", error);
       ctx.throw(500, "Error en el callback de Keycloak");

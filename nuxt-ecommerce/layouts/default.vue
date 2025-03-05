@@ -5,7 +5,7 @@
 
   <!-- Por si esta en mantenimiento  -->
   <div v-else>
-    <Navbar />
+    <Navbar :data="data" />
     <main>
       <NuxtPage />
     </main>
@@ -19,10 +19,12 @@ import Mantenimiento from "~/components/Pages/Matenimiento.vue"
 
 const { $backedstrapi } = useNuxtApp();
 const matenimiento = ref(true)
+const data = ref([])
 
 onMounted(async () => {
-  const response = await $backedstrapi.get('/configuracions?populate=*')
+  const response = await $backedstrapi.get('/configuracions?populate[foooter][populate]=*&populate[carousel][populate]=*&populate[colores][populate]')
   if(response.status === 200) {
+    data.value = response.data?.data[0]
     matenimiento.value = response.data?.data[0]?.mantenimiento
   }
 

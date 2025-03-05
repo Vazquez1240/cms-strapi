@@ -2,13 +2,20 @@
   "collectionName": "components_carousel_carousels",
   "info": {
     "displayName": "Carousel",
-    "icon": "landscape"
+    "icon": "landscape",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "descripcion": {
-      "type": "text",
-      "required": true
+    "imagen_carrusel": {
+      "allowedTypes": [
+        "files",
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": false
     }
   }
 }
