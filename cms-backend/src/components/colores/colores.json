@@ -1,18 +1,22 @@
 {
   "collectionName": "components_colores_colores",
   "info": {
-    "displayName": "colores"
+    "displayName": "colores",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "color_primario": {
-      "type": "string",
+      "type": "customField",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
       "required": true,
-      "unique": false
+      "customField": "plugin::color-picker.color"
     },
     "color_secundario": {
-      "type": "string",
-      "required": true
+      "type": "customField",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "required": true,
+      "customField": "plugin::color-picker.color"
     }
   }
 }

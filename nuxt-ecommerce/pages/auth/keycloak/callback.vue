@@ -30,6 +30,8 @@ onMounted(async () => {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
+    console.log(userResponse.data.email, 'userResponse.data.email')
+
     useUserStore.setDataAuthToken(accessToken, refreshToken, expiresInToken, expireInRefresh, 'keycloack');
     useUserStore.setDataUsername(userResponse.data.preferred_username);
     useUserStore.setDataNombre(userResponse.data.name);

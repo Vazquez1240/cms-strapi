@@ -14,12 +14,23 @@
         <template #panel>
           <div class="w-[280px] h-[220px] flex flex-col gap-8 p-4 items-center">
             <div v-if="useUserStore.auth.token !== '' "
-                 class="w-full flex flex-col justify-center items-center">
-              <p>Bienvenido {{useUserStore.datosUser.username}}</p>
-              <UButton
-                  class="w-full flex justify-center items-center"
-                  @click="() => logoutKeycloak()"
-                  :style="{backgroundColor:data?.colores[0]?.color_primario }">Cerrar sesión</UButton>
+                 class="w-full flex flex-col gap-6 justify-center items-center mt-6">
+              <div class="flex flex-col gap-4 w-full justify-center items-center">
+                <p class="text-1xl text-gray-500">Hola {{useUserStore.datosUser.nombre.toUpperCase()}}</p>
+                <p class="flex gap-2 justify-center items-center text-[12px] text-gray-400" ><UIcon name="lucide:mail"/>{{useUserStore.datosUser.correo}}</p>
+              </div>
+              <div class="w-full flex flex-col gap-3">
+                <UButton
+                    class="w-full flex justify-center items-center"
+                    :disabled="true"
+                    :style="{backgroundColor:data?.colores[0]?.color_primario }">Gestiona tu perfil</UButton>
+                <UButton
+                    class="w-full flex justify-center items-center"
+                    variant="outline"
+                    color="white"
+                    @click="() => logoutKeycloak()"
+                >Cerrar sesión</UButton>
+              </div>
             </div>
             <div v-else class="w-full flex flex-col gap-8 justify-center items-center mt-6">
               <NuxtImg :src="'http://localhost:1337'+data?.foooter?.logo?.url" width="200" height="200"/>

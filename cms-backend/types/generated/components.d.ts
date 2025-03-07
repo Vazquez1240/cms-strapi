@@ -39,18 +39,26 @@ export interface CarouselCarousel extends Struct.ComponentSchema {
     icon: 'landscape';
   };
   attributes: {
-    imagen_carrusel: Schema.Attribute.Media<'files' | 'images' | 'videos'>;
+    imagen_carrusel: Schema.Attribute.Media<
+      'files' | 'images' | 'videos',
+      true
+    >;
   };
 }
 
 export interface ColoresColores extends Struct.ComponentSchema {
   collectionName: 'components_colores_colores';
   info: {
+    description: '';
     displayName: 'colores';
   };
   attributes: {
-    color_primario: Schema.Attribute.String & Schema.Attribute.Required;
-    color_secundario: Schema.Attribute.String & Schema.Attribute.Required;
+    color_primario: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
+    color_secundario: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<'plugin::color-picker.color'>;
   };
 }
 

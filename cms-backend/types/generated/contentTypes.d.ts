@@ -382,7 +382,7 @@ export interface ApiConfiguracionConfiguracion
     draftAndPublish: true;
   };
   attributes: {
-    carousel: Schema.Attribute.Component<'carousel.carousel', false> &
+    carousel: Schema.Attribute.Component<'carousel.carousel', true> &
       Schema.Attribute.Required;
     colores: Schema.Attribute.Component<'colores.colores', true>;
     createdAt: Schema.Attribute.DateTime;
@@ -409,6 +409,7 @@ export interface ApiConfiguracionConfiguracion
 export interface ApiKeycloakKeycloak extends Struct.CollectionTypeSchema {
   collectionName: 'keycloaks';
   info: {
+    description: '';
     displayName: 'Keycloak';
     pluralName: 'keycloaks';
     singularName: 'keycloak';

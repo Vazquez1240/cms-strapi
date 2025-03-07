@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!matenimiento" class="flex w-full h-[100vh] justify-center items-center">
+  <div v-if="matenimiento" class="flex w-full h-[100vh] justify-center items-center">
     <Mantenimiento />
   </div>
 
@@ -16,17 +16,35 @@
 import {onMounted,ref} from "vue";
 import Navbar from "~/components/Navbar.vue";
 import Mantenimiento from "~/components/Pages/Matenimiento.vue"
+import {indexStore} from "~/stores/indexStore";
 
 const { $backedstrapi } = useNuxtApp();
-const matenimiento = ref(true)
+const matenimiento = ref(false)
 const data = ref([])
+const useIndexStore = indexStore()
 
 onMounted(async () => {
-  const response = await $backedstrapi.get('/configuracions?populate[foooter][populate]=*&populate[carousel][populate]=*&populate[colores][populate]')
-  if(response.status === 200) {
-    data.value = response.data?.data[0]
-    matenimiento.value = response.data?.data[0]?.mantenimiento
-  }
+  try {
+    const [configResponse, productosResponse] = await Promise.all([
+      $backedstrapi.get('/configuracions?populate[foooter][populate]=*&populate[carousel][populate]=*&populate[colores][populate]=*'),
+      $backedstrapi.get('/productos?populate=*')
+    ]);
 
-})
+    if (configResponse.status === 200) {
+      data.value = configResponse.data?.data[0];
+      matenimiento.value = configResponse.data?.data[0]?.mantenimiento;
+      useIndexStore.setDataCarousel(configResponse.data?.data[0]?.carousel);
+      useIndexStore.setDataConfiguracion(configResponse.data?.data[0]);
+    }
+
+    if (productosResponse.status === 200) {
+      useIndexStore.setDataProductos(productosResponse.data?.data)
+    }
+
+    useIndexStore.setDataCargando(false)
+  } catch (error) {
+    useIndexStore.setDataCargando(false)
+  }
+});
+
 </script>

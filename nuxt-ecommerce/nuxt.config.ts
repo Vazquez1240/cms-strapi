@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@pinia/nuxt", "pinia-plugin-persistedstate/nuxt", "@nuxt/image"],
+  modules: ["@nuxt/ui", "@pinia/nuxt", "pinia-plugin-persistedstate/nuxt", "@nuxt/image", "@nuxtjs/tailwindcss"],
   compatibilityDate: "2025-02-22",
   colorMode: {
     preference: 'light'
@@ -30,5 +30,11 @@ export default defineNuxtConfig({
       STRAPI_USERS_LOGIN: "http://localhost:1337/api/auth/local",
       STRAPI_USERS_CHANGEPASSWORD: "http://localhost:1337/api/auth/change-password",
     }
-  }
+  },
+  tailwindcss: {
+    configPath: '~/tailwind.config.ts',
+    exposeConfig: true,
+    injectPosition: 0,
+    viewer: true,
+  },
 })

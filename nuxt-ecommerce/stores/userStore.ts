@@ -25,7 +25,7 @@ const userStore = defineStore('userStore', {
       this.datosUser.nombre = nombre;
     },
     setDataEmail(email: string) {
-      this.datosUser.email = email;
+      this.datosUser.correo = email;
     },
     setDataAuthToken(token: string, refresh_token: string, tokenExpiry: number, refreshTokenExpiry:number, provider: string) {
       this.auth.token = token;

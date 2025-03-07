@@ -24,7 +24,7 @@
     },
     "carousel": {
       "type": "component",
-      "repeatable": false,
+      "repeatable": true,
       "component": "carousel.carousel",
       "required": true
     },
